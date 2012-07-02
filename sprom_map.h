@@ -16,13 +16,30 @@
 
 int sprom_map(int fdin, long fdin_size, FILE* fdout);
 
+/*
 #define SPOFF(offset)	((offset) / sizeof(uint16_t))
 #define SPEX(_field, _offset, _mask, _shift)	\
 	bus->sprom._field = ((sprom[SPOFF(_offset)] & (_mask)) >> (_shift))
+#define SPEX32(_field, _offset, _mask, _shift)	\
+	bus->sprom._field = ((((u32)sprom[SPOFF((_offset)+2)] << 16 | sprom[SPOFF(_offset)]) & (_mask)) >> (_shift))
+*/
 
-#define SPOFF2(offset)	((offset) / sizeof(uint16_t))
-#define SPEX2(_offset, _mask, _shift)	\
-	((sprom[SPOFF2(_offset)] & (_mask)) >> (_shift))
+#define SPOFF(offset)	((offset) / sizeof(uint16_t))
+#define SPEX(_offset, _mask, _shift)	\
+	((sprom[SPOFF(_offset)] & (_mask)) >> (_shift))
+#define SPEX32(_offset, _mask, _shift)	\
+	((((u32)sprom[SPOFF((_offset)+2)] << 16 | sprom[SPOFF(_offset)]) & (_mask)) >> (_shift))
+#define SPEX_ARRAY8(_field, _offset, _mask, _shift)	\
+	do {	\
+		SPEX(_field[0], _offset +  0, _mask, _shift);	\
+		SPEX(_field[1], _offset +  2, _mask, _shift);	\
+		SPEX(_field[2], _offset +  4, _mask, _shift);	\
+		SPEX(_field[3], _offset +  6, _mask, _shift);	\
+		SPEX(_field[4], _offset +  8, _mask, _shift);	\
+		SPEX(_field[5], _offset + 10, _mask, _shift);	\
+		SPEX(_field[6], _offset + 12, _mask, _shift);	\
+		SPEX(_field[7], _offset + 14, _mask, _shift);	\
+	} while (0)
 
 /* SPROM shadow area. If not otherwise noted, fields are
  * two bytes wide. Note that the SPROM can _only_ be read
@@ -89,6 +106,11 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define  SSB_SPROM8_GPIOB_P2		0x00FF	/* Pin 2 */
 #define  SSB_SPROM8_GPIOB_P3		0xFF00	/* Pin 3 */
 #define  SSB_SPROM8_GPIOB_P3_SHIFT	8
+#define SSB_SPROM8_LEDDC		0x009A
+#define  SSB_SPROM8_LEDDC_ON		0xFF00	/* oncount */
+#define  SSB_SPROM8_LEDDC_ON_SHIFT	8
+#define  SSB_SPROM8_LEDDC_OFF		0x00FF	/* offcount */
+#define  SSB_SPROM8_LEDDC_OFF_SHIFT	0
 #define SSB_SPROM8_ANTAVAIL		0x009C  /* Antenna available bitfields*/
 #define  SSB_SPROM8_ANTAVAIL_A		0xFF00	/* A-PHY bitfield */
 #define  SSB_SPROM8_ANTAVAIL_A_SHIFT	8
@@ -104,6 +126,13 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define  SSB_SPROM8_AGAIN2_SHIFT	0
 #define  SSB_SPROM8_AGAIN3		0xFF00	/* Antenna 3 */
 #define  SSB_SPROM8_AGAIN3_SHIFT	8
+#define SSB_SPROM8_TXRXC		0x00A2
+#define  SSB_SPROM8_TXRXC_TXCHAIN	0x000f
+#define  SSB_SPROM8_TXRXC_TXCHAIN_SHIFT	0
+#define  SSB_SPROM8_TXRXC_RXCHAIN	0x00f0
+#define  SSB_SPROM8_TXRXC_RXCHAIN_SHIFT	4
+#define  SSB_SPROM8_TXRXC_SWITCH	0xff00
+#define  SSB_SPROM8_TXRXC_SWITCH_SHIFT	8
 #define SSB_SPROM8_RSSIPARM2G		0x00A4	/* RSSI params for 2GHz */
 #define  SSB_SPROM8_RSSISMF2G		0x000F
 #define  SSB_SPROM8_RSSISMC2G		0x00F0
@@ -130,6 +159,7 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define  SSB_SPROM8_TRI5GH_SHIFT	8
 #define SSB_SPROM8_RXPO			0x00AC  /* RX power offsets */
 #define  SSB_SPROM8_RXPO2G		0x00FF	/* 2GHz RX power offset */
+#define  SSB_SPROM8_RXPO2G_SHIFT	0
 #define  SSB_SPROM8_RXPO5G		0xFF00	/* 5GHz RX power offset */
 #define  SSB_SPROM8_RXPO5G_SHIFT	8
 #define SSB_SPROM8_FEM2G		0x00AE
@@ -145,6 +175,38 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define  SSB_SROM8_FEM_ANTSWLUT		0xF800
 #define  SSB_SROM8_FEM_ANTSWLUT_SHIFT	11
 #define SSB_SPROM8_THERMAL		0x00B2
+#define  SSB_SPROM8_THERMAL_OFFSET	0x00ff
+#define  SSB_SPROM8_THERMAL_OFFSET_SHIFT	0
+#define  SSB_SPROM8_THERMAL_TRESH	0xff00
+#define  SSB_SPROM8_THERMAL_TRESH_SHIFT	8
+/* Temp sense related entries */
+#define SSB_SPROM8_RAWTS		0x00B4
+#define  SSB_SPROM8_RAWTS_RAWTEMP	0x01ff
+#define  SSB_SPROM8_RAWTS_RAWTEMP_SHIFT	0
+#define  SSB_SPROM8_RAWTS_MEASPOWER	0xfe00
+#define  SSB_SPROM8_RAWTS_MEASPOWER_SHIFT	9
+#define SSB_SPROM8_OPT_CORRX		0x00B6
+#define  SSB_SPROM8_OPT_CORRX_TEMP_SLOPE	0x00ff
+#define  SSB_SPROM8_OPT_CORRX_TEMP_SLOPE_SHIFT	0
+#define  SSB_SPROM8_OPT_CORRX_TEMPCORRX	0xfc00
+#define  SSB_SPROM8_OPT_CORRX_TEMPCORRX_SHIFT	10
+#define  SSB_SPROM8_OPT_CORRX_TEMP_OPTION	0x0300
+#define  SSB_SPROM8_OPT_CORRX_TEMP_OPTION_SHIFT	8
+/* FOC: freiquency offset correction, HWIQ: H/W IOCAL enable, IQSWP: IQ CAL swap disable */
+#define SSB_SPROM8_HWIQ_IQSWP		0x00B8
+#define  SSB_SPROM8_HWIQ_IQSWP_FREQ_CORR	0x000f
+#define  SSB_SPROM8_HWIQ_IQSWP_FREQ_CORR_SHIFT	0
+#define  SSB_SPROM8_HWIQ_IQSWP_IQCAL_SWP	0x0010
+#define  SSB_SPROM8_HWIQ_IQSWP_IQCAL_SWP_SHIFT	4
+#define  SSB_SPROM8_HWIQ_IQSWP_HW_IQCAL	0x0020
+#define  SSB_SPROM8_HWIQ_IQSWP_HW_IQCAL_SHIFT	5
+#define SSB_SPROM8_TEMPDELTA		0x00BA
+#define  SSB_SPROM8_TEMPDELTA_PHYCAL	0x00ff
+#define  SSB_SPROM8_TEMPDELTA_PHYCAL_SHIFT	0
+#define  SSB_SPROM8_TEMPDELTA_PERIOD	0x0f00
+#define  SSB_SPROM8_TEMPDELTA_PERIOD_SHIFT	8
+#define  SSB_SPROM8_TEMPDELTA_HYSTERESIS	0xf000
+#define  SSB_SPROM8_TEMPDELTA_HYSTERESIS_SHIFT	12
 #define SSB_SPROM8_MPWR_RAWTS		0x00B4
 #define SSB_SPROM8_TS_SLP_OPT_CORRX	0x00B6
 #define SSB_SPROM8_FOC_HWIQ_IQSWP	0x00B8
@@ -212,5 +274,15 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define SSB_SPROM8_OFDM5GPO		0x0146	/* 5.3GHz OFDM power offset */
 #define SSB_SPROM8_OFDM5GLPO		0x014A	/* 5.2GHz OFDM power offset */
 #define SSB_SPROM8_OFDM5GHPO		0x014E	/* 5.8GHz OFDM power offset */
+
+#define SSB_SPROM8_2G_MCSPO		0x0152
+#define SSB_SPROM8_5G_MCSPO		0x0162
+#define SSB_SPROM8_5GL_MCSPO		0x0172
+#define SSB_SPROM8_5GH_MCSPO		0x0182
+
+#define SSB_SPROM8_CDDPO		0x0192
+#define SSB_SPROM8_STBCPO		0x0194
+#define SSB_SPROM8_BW40PO		0x0196
+#define SSB_SPROM8_BWDUPPO		0x0198
 
 #endif
