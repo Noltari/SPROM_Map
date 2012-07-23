@@ -491,7 +491,7 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 			pa_2g[0] = SPEX(o + SSB_SROM8_2G_PA_0, ~0, 0);
 			pa_2g[1] = SPEX(o + SSB_SROM8_2G_PA_1, ~0, 0);
 			pa_2g[2] = SPEX(o + SSB_SROM8_2G_PA_2, ~0, 0);
-			pa_2g[3] = 0;
+			pa_2g[3] = 0xffff;
 			fprintf(fdout, "\t.core_pwr_info[%d].pa_2g\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", i, pa_2g[0], pa_2g[1], pa_2g[2], pa_2g[3]);
 		uint8_t itssi_5g = SPEX(o + SSB_SROM8_5G_MAXP_ITSSI, SSB_SPROM8_5G_ITSSI, SSB_SPROM8_5G_ITSSI_SHIFT);
 			fprintf(fdout, "\t.core_pwr_info[%d].itssi_5g\t\t= 0x%x,\n", i, itssi_5g);
@@ -505,19 +505,19 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 			pa_5gl[0] = SPEX(o + SSB_SROM8_5GL_PA_0, ~0, 0);
 			pa_5gl[1] = SPEX(o + SSB_SROM8_5GL_PA_1, ~0, 0);
 			pa_5gl[2] = SPEX(o + SSB_SROM8_5GL_PA_2, ~0, 0);
-			pa_5gl[3] = 0;
+			pa_5gl[3] = 0xffff;
 			fprintf(fdout, "\t.core_pwr_info[%d].pa_5gl\t\t= {0x%x,0x%x,0x%x,0x%x},\n", i, pa_5gl[0], pa_5gl[1], pa_5gl[2], pa_5gl[3]);
 		uint16_t pa_5g[4];
 			pa_5g[0] = SPEX(o + SSB_SROM8_5G_PA_0, ~0, 0);
 			pa_5g[1] = SPEX(o + SSB_SROM8_5G_PA_1, ~0, 0);
 			pa_5g[2] = SPEX(o + SSB_SROM8_5G_PA_2, ~0, 0);
-			pa_5g[3] = 0;
+			pa_5g[3] = 0xffff;
 			fprintf(fdout, "\t.core_pwr_info[%d].pa_5g\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", i, pa_5g[0], pa_5g[1], pa_5g[2], pa_5g[3]);
 		uint16_t pa_5gh[4];
 			pa_5gh[0] = SPEX(o + SSB_SROM8_5GH_PA_0, ~0, 0);
 			pa_5gh[1] = SPEX(o + SSB_SROM8_5GH_PA_1, ~0, 0);
 			pa_5gh[2] = SPEX(o + SSB_SROM8_5GH_PA_2, ~0, 0);
-			pa_5gh[3] = 0;
+			pa_5gh[3] = 0xffff;
 			fprintf(fdout, "\t.core_pwr_info[%d].pa_5gh\t\t= {0x%x,0x%x,0x%x,0x%x},\n", i, pa_5gh[0], pa_5gh[1], pa_5gh[2], pa_5gh[3]);
 	}
 
