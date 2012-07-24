@@ -3,8 +3,8 @@
 	@author: Álvaro Fernández Rojas <noltari@gmail.com>
 */
 
-#ifndef MAP_SPROM_EXTRACT_H
-#define MAP_SPROM_EXTRACT_H 1
+#ifndef SPROM_MAP_H
+#define SPROM_MAP_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -15,14 +15,6 @@
 #include <sys/types.h>
 
 int sprom_map(int fdin, long fdin_size, FILE* fdout);
-
-/*
-#define SPOFF(offset)	((offset) / sizeof(uint16_t))
-#define SPEX(_field, _offset, _mask, _shift)	\
-	bus->sprom._field = ((sprom[SPOFF(_offset)] & (_mask)) >> (_shift))
-#define SPEX32(_field, _offset, _mask, _shift)	\
-	bus->sprom._field = ((((u32)sprom[SPOFF((_offset)+2)] << 16 | sprom[SPOFF(_offset)]) & (_mask)) >> (_shift))
-*/
 
 #define SPOFF(offset)	((offset) / sizeof(uint16_t))
 #define SPEX(_offset, _mask, _shift)	\
@@ -285,4 +277,4 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout);
 #define SSB_SPROM8_BW40PO		0x0196
 #define SSB_SPROM8_BWDUPPO		0x0198
 
-#endif
+#endif /* SPROM_MAP_H */
