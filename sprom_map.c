@@ -68,25 +68,25 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 		txpid2g[1] = SPEX(SSB_SPROM4_TXPID2G01, SSB_SPROM4_TXPID2G1, SSB_SPROM4_TXPID2G1_SHIFT);
 		txpid2g[2] = SPEX(SSB_SPROM4_TXPID2G23, SSB_SPROM4_TXPID2G2, SSB_SPROM4_TXPID2G2_SHIFT);
 		txpid2g[3] = SPEX(SSB_SPROM4_TXPID2G23, SSB_SPROM4_TXPID2G3, SSB_SPROM4_TXPID2G3_SHIFT);
-		fprintf(fdout, "\t.txpid2g\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", txpid2g[0], txpid2g[1], txpid2g[2], txpid2g[3]);
+		fprintf(fdout, "\t.txpid2g\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", txpid2g[0], txpid2g[1], txpid2g[2], txpid2g[3]);
 	uint8_t txpid5gl[4];
 		txpid5gl[0] = SPEX(SSB_SPROM4_TXPID5GL01, SSB_SPROM4_TXPID5GL0, SSB_SPROM4_TXPID5GL0_SHIFT);
 		txpid5gl[1] = SPEX(SSB_SPROM4_TXPID5GL01, SSB_SPROM4_TXPID5GL1, SSB_SPROM4_TXPID5GL1_SHIFT);
 		txpid5gl[2] = SPEX(SSB_SPROM4_TXPID5GL23, SSB_SPROM4_TXPID5GL2, SSB_SPROM4_TXPID5GL2_SHIFT);
 		txpid5gl[3] = SPEX(SSB_SPROM4_TXPID5GL23, SSB_SPROM4_TXPID5GL3, SSB_SPROM4_TXPID5GL3_SHIFT);
-		fprintf(fdout, "\t.txpid5gl\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", txpid5gl[0], txpid5gl[1], txpid5gl[2], txpid5gl[3]);
+		fprintf(fdout, "\t.txpid5gl\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", txpid5gl[0], txpid5gl[1], txpid5gl[2], txpid5gl[3]);
 	uint8_t txpid5g[4];
 		txpid5g[0] = SPEX(SSB_SPROM4_TXPID5G01, SSB_SPROM4_TXPID5G0, SSB_SPROM4_TXPID5G0_SHIFT);
 		txpid5g[1] = SPEX(SSB_SPROM4_TXPID5G01, SSB_SPROM4_TXPID5G1, SSB_SPROM4_TXPID5G1_SHIFT);
 		txpid5g[2] = SPEX(SSB_SPROM4_TXPID5G23, SSB_SPROM4_TXPID5G2, SSB_SPROM4_TXPID5G2_SHIFT);
 		txpid5g[3] = SPEX(SSB_SPROM4_TXPID5G23, SSB_SPROM4_TXPID5G3, SSB_SPROM4_TXPID5G3_SHIFT);
-		fprintf(fdout, "\t.txpid5g\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", txpid5g[0], txpid5g[1], txpid5g[2], txpid5g[3]);
+		fprintf(fdout, "\t.txpid5g\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", txpid5g[0], txpid5g[1], txpid5g[2], txpid5g[3]);
 	uint8_t txpid5gh[4];
 		txpid5gh[0] = SPEX(SSB_SPROM4_TXPID5GH01, SSB_SPROM4_TXPID5GH0, SSB_SPROM4_TXPID5GH0_SHIFT);
 		txpid5gh[1] = SPEX(SSB_SPROM4_TXPID5GH01, SSB_SPROM4_TXPID5GH1, SSB_SPROM4_TXPID5GH1_SHIFT);
 		txpid5gh[2] = SPEX(SSB_SPROM4_TXPID5GH23, SSB_SPROM4_TXPID5GH2, SSB_SPROM4_TXPID5GH2_SHIFT);
 		txpid5gh[3] = SPEX(SSB_SPROM4_TXPID5GH23, SSB_SPROM4_TXPID5GH3, SSB_SPROM4_TXPID5GH3_SHIFT);
-		fprintf(fdout, "\t.txpid5gh\t\t\t= {0x%x,0x%x,0x%x,0x%x},\n", txpid5gh[0], txpid5gh[1], txpid5gh[2], txpid5gh[3]);
+		fprintf(fdout, "\t.txpid5gh\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", txpid5gh[0], txpid5gh[1], txpid5gh[2], txpid5gh[3]);
 	uint16_t boardflags_lo = SPEX(SSB_SPROM8_BFLLO, ~0, 0);
 		fprintf(fdout, "\t.boardflags_lo\t\t= 0x%x,\n", boardflags_lo);
 	uint16_t boardflags_hi = SPEX(SSB_SPROM8_BFLHI, ~0, 0);
@@ -103,7 +103,7 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 	char alpha2[2];
 		alpha2[0] = SPEX(SSB_SPROM8_CCODE, 0xff00, 8);
 		alpha2[1] = SPEX(SSB_SPROM8_CCODE, 0x00ff, 0);
-		fprintf(fdout, "\t.alpha2\t\t\t\t= {0x%x,0x%x},\n", alpha2[0], alpha2[1]);
+		fprintf(fdout, "\t.alpha2\t\t\t\t= {0x%x, 0x%x},\n", alpha2[0], alpha2[1]);
 
 	uint16_t pwr_info_offset[] = {
 		SSB_SROM8_PWR_INFO_CORE0, SSB_SROM8_PWR_INFO_CORE1,
@@ -125,7 +125,7 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 					pa_2g[1] = SPEX(o + SSB_SROM8_2G_PA_1, ~0, 0);
 					pa_2g[2] = SPEX(o + SSB_SROM8_2G_PA_2, ~0, 0);
 					pa_2g[3] = 0xffff;
-					fprintf(fdout, "\t\t\t.pa_2g\t\t= {0x%x,0x%x,0x%x,0x%x},\n", pa_2g[0], pa_2g[1], pa_2g[2], pa_2g[3]);
+					fprintf(fdout, "\t\t\t.pa_2g\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", pa_2g[0], pa_2g[1], pa_2g[2], pa_2g[3]);
 				uint8_t itssi_5g = SPEX(o + SSB_SROM8_5G_MAXP_ITSSI, SSB_SPROM8_5G_ITSSI, SSB_SPROM8_5G_ITSSI_SHIFT);
 					fprintf(fdout, "\t\t\t.itssi_5g\t= 0x%x,\n", itssi_5g);
 				uint8_t maxpwr_5g = SPEX(o + SSB_SROM8_5G_MAXP_ITSSI, SSB_SPROM8_5G_MAXP, 0);
@@ -139,19 +139,19 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 					pa_5gl[1] = SPEX(o + SSB_SROM8_5GL_PA_1, ~0, 0);
 					pa_5gl[2] = SPEX(o + SSB_SROM8_5GL_PA_2, ~0, 0);
 					pa_5gl[3] = 0xffff;
-					fprintf(fdout, "\t\t\t.pa_5gl\t\t= {0x%x,0x%x,0x%x,0x%x},\n", pa_5gl[0], pa_5gl[1], pa_5gl[2], pa_5gl[3]);
+					fprintf(fdout, "\t\t\t.pa_5gl\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", pa_5gl[0], pa_5gl[1], pa_5gl[2], pa_5gl[3]);
 				uint16_t pa_5g[4];
 					pa_5g[0] = SPEX(o + SSB_SROM8_5G_PA_0, ~0, 0);
 					pa_5g[1] = SPEX(o + SSB_SROM8_5G_PA_1, ~0, 0);
 					pa_5g[2] = SPEX(o + SSB_SROM8_5G_PA_2, ~0, 0);
 					pa_5g[3] = 0xffff;
-					fprintf(fdout, "\t\t\t.pa_5g\t\t= {0x%x,0x%x,0x%x,0x%x},\n", pa_5g[0], pa_5g[1], pa_5g[2], pa_5g[3]);
+					fprintf(fdout, "\t\t\t.pa_5g\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", pa_5g[0], pa_5g[1], pa_5g[2], pa_5g[3]);
 				uint16_t pa_5gh[4];
 					pa_5gh[0] = SPEX(o + SSB_SROM8_5GH_PA_0, ~0, 0);
 					pa_5gh[1] = SPEX(o + SSB_SROM8_5GH_PA_1, ~0, 0);
 					pa_5gh[2] = SPEX(o + SSB_SROM8_5GH_PA_2, ~0, 0);
 					pa_5gh[3] = 0xffff;
-					fprintf(fdout, "\t\t\t.pa_5gh\t\t= {0x%x,0x%x,0x%x,0x%x},\n", pa_5gh[0], pa_5gh[1], pa_5gh[2], pa_5gh[3]);
+					fprintf(fdout, "\t\t\t.pa_5gh\t\t= {0x%x, 0x%x, 0x%x, 0x%x},\n", pa_5gh[0], pa_5gh[1], pa_5gh[2], pa_5gh[3]);
 			fprintf(fdout, "\t\t},\n");
 		}
 	fprintf(fdout, "\t},\n");
@@ -311,10 +311,10 @@ int sprom_map(int fdin, long fdin_size, FILE* fdout) {
 			mcs5glpo[i] = SPEX(SSB_SPROM8_5GL_MCSPO + (i * 2), ~0, 0);
 			mcs5ghpo[i] = SPEX(SSB_SPROM8_5GH_MCSPO + (i * 2), ~0, 0);
 		}
-		fprintf(fdout, "\t.mcs2gpo\t\t\t= {0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x},\n", mcs2gpo[0], mcs2gpo[1], mcs2gpo[2], mcs2gpo[3], mcs2gpo[4], mcs2gpo[5], mcs2gpo[6], mcs2gpo[7]);
-		fprintf(fdout, "\t.mcs5gpo\t\t\t= {0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x},\n", mcs5gpo[0], mcs5gpo[1], mcs5gpo[2], mcs5gpo[3], mcs5gpo[4], mcs5gpo[5], mcs5gpo[6], mcs5gpo[7]);
-		fprintf(fdout, "\t.mcs5glpo\t\t\t= {0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x},\n", mcs5glpo[0], mcs5glpo[1], mcs5glpo[2], mcs5glpo[3], mcs5glpo[4], mcs5glpo[5], mcs5glpo[6], mcs5glpo[7]);
-		fprintf(fdout, "\t.mcs5ghpo\t\t\t= {0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x},\n", mcs5ghpo[0], mcs5ghpo[1], mcs5ghpo[2], mcs5ghpo[3], mcs5ghpo[4], mcs5ghpo[5], mcs5ghpo[6], mcs5ghpo[7]);
+		fprintf(fdout, "\t.mcs2gpo\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x},\n", mcs2gpo[0], mcs2gpo[1], mcs2gpo[2], mcs2gpo[3], mcs2gpo[4], mcs2gpo[5], mcs2gpo[6], mcs2gpo[7]);
+		fprintf(fdout, "\t.mcs5gpo\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x},\n", mcs5gpo[0], mcs5gpo[1], mcs5gpo[2], mcs5gpo[3], mcs5gpo[4], mcs5gpo[5], mcs5gpo[6], mcs5gpo[7]);
+		fprintf(fdout, "\t.mcs5glpo\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x},\n", mcs5glpo[0], mcs5glpo[1], mcs5glpo[2], mcs5glpo[3], mcs5glpo[4], mcs5glpo[5], mcs5glpo[6], mcs5glpo[7]);
+		fprintf(fdout, "\t.mcs5ghpo\t\t\t= {0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x},\n", mcs5ghpo[0], mcs5ghpo[1], mcs5ghpo[2], mcs5ghpo[3], mcs5ghpo[4], mcs5ghpo[5], mcs5ghpo[6], mcs5ghpo[7]);
 
 	uint16_t rawtempsense = SPEX(SSB_SPROM8_RAWTS, SSB_SPROM8_RAWTS_RAWTEMP, SSB_SPROM8_RAWTS_RAWTEMP_SHIFT);
 		fprintf(fdout, "\t.rawtempsense\t\t= 0x%x,\n", rawtempsense);
